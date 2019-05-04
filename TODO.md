@@ -9,9 +9,9 @@
     - [ ] SVM  
     - [x] LinearSVM  
     - [ ] GMM  
-- [ ] Contour detection methods
-    - [ ] Curve Polygonalisation
-    - [ ] Morphological Skeleton
+- [X] Contour detection methods
+    - [X] Curve Polygonalisation
+    - [X] Morphological Skeleton
 - [ ] Implement
     - [x] Distance between two contours
     - [x] Chain code (Freeman code)
