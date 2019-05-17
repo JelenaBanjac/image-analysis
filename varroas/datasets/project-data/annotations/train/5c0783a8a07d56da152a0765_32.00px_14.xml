@@ -1,0 +1,32 @@
+<annotation>
+	<object>
+		<name>Varroa</name>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1294</xmin>
+			<ymin>341</ymin>
+			<xmax>1316</xmax>
+			<ymax>364</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>Varroa</name>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>142</xmin>
+			<ymin>78</ymin>
+			<xmax>163</xmax>
+			<ymax>100</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>Varroa</name>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>567</xmin>
+			<ymin>143</ymin>
+			<xmax>589</xmax>
+			<ymax>166</ymax>
+		</bndbox>
+	</object>
+</annotation>
