@@ -56,6 +56,7 @@ from mrcnn import visualize
 
 # Path to trained weights file
 COCO_WEIGHTS_PATH = os.path.join(VARROA_DIR, "mask_rcnn_balloon.h5")
+print(COCO_WEIGHTS_PATH)
 
 # Directory to save logs and model checkpoints, if not provided
 # through the command line argument --logs
