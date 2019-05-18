@@ -44,25 +44,26 @@ import skimage.io
 from imgaug import augmenters as iaa
 
 # Root directory of the project
-ROOT_DIR = os.path.abspath("../Mask_RCNN")
+ROOT_DIR = os.path.join(os.getcwd())
+VARROA_DIR = sys.path.append(os.path.join(ROOT_DIR,"image-analysis","varroas"))
 
 # Import Mask RCNN
-sys.path.append(ROOT_DIR)  # To find local version of the library
+sys.path.append(os.path.join(ROOT_DIR,"image-analysis","Mask_RCNN")) # To find local version of the library
 from mrcnn.config import Config
 from mrcnn import utils
 from mrcnn import model as modellib
 from mrcnn import visualize
 
 # Path to trained weights file
-COCO_WEIGHTS_PATH = os.path.join(ROOT_DIR, "mask_rcnn_coco.h5")
+COCO_WEIGHTS_PATH = os.path.join(VARROA_DIR, "mask_rcnn_balloon.h5")
 
 # Directory to save logs and model checkpoints, if not provided
 # through the command line argument --logs
-DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "logs")
+DEFAULT_LOGS_DIR = os.path.join(VARROA_DIR, "logs")
 
 # Results directory
 # Save submission files here
-RESULTS_DIR = os.path.join(ROOT_DIR, "results/varroa/")
+RESULTS_DIR = os.path.join(VARROA_DIR, "results/")
 
 # The dataset doesn't have a standard train/val split, so I picked
 # a variety of images to surve as a validation set.
