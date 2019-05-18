@@ -1,3 +1,5 @@
+varroas/logs*
+*.h5
 #
 project-data.tar.gz
 

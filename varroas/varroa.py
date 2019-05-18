@@ -44,18 +44,21 @@ import skimage.io
 from imgaug import augmenters as iaa
 
 # Root directory of the project
-ROOT_DIR = os.path.join(os.getcwd())
-VARROA_DIR = sys.path.append(os.path.join(ROOT_DIR,"image-analysis","varroas"))
+ROOT_DIR = os.path.abspath(os.path.join(os.getcwd(), ".."))
+print(ROOT_DIR)
+VARROA_DIR = os.path.join(ROOT_DIR,"varroas")
+MASK_RCNN_DIR = os.path.join(ROOT_DIR,"Mask_RCNN")
+print(MASK_RCNN_DIR)
 
 # Import Mask RCNN
-sys.path.append(os.path.join(ROOT_DIR,"image-analysis","Mask_RCNN")) # To find local version of the library
+sys.path.append(MASK_RCNN_DIR) # To find local version of the library
 from mrcnn.config import Config
 from mrcnn import utils
 from mrcnn import model as modellib
 from mrcnn import visualize
 
 # Path to trained weights file
-COCO_WEIGHTS_PATH = os.path.join(VARROA_DIR, "mask_rcnn_balloon.h5")
+COCO_WEIGHTS_PATH = os.path.join(VARROA_DIR, "datasets","mask_rcnn_balloon.h5")
 print(COCO_WEIGHTS_PATH)
 
 # Directory to save logs and model checkpoints, if not provided
@@ -68,32 +71,45 @@ RESULTS_DIR = os.path.join(VARROA_DIR, "results/")
 
 # The dataset doesn't have a standard train/val split, so I picked
 # a variety of images to surve as a validation set.
+# REFERENCE_FILE = os.path.join(ROOT_DIR, 'datasets', 'project-data', 'validation.txt')
+# with open(REFERENCE_FILE, 'r') as f:
+#     VAL_IMAGE_IDS = f.readlines()
 VAL_IMAGE_IDS = [
-    "0c2550a23b8a0f29a7575de8c61690d3c31bc897dd5ba66caec201d201a278c2",
-    "92f31f591929a30e4309ab75185c96ff4314ce0a7ead2ed2c2171897ad1da0c7",
-    "1e488c42eb1a54a3e8412b1f12cde530f950f238d71078f2ede6a85a02168e1f",
-    "c901794d1a421d52e5734500c0a2a8ca84651fb93b19cec2f411855e70cae339",
-    "8e507d58f4c27cd2a82bee79fe27b069befd62a46fdaed20970a95a2ba819c7b",
-    "60cb718759bff13f81c4055a7679e81326f78b6a193a2d856546097c949b20ff",
-    "da5f98f2b8a64eee735a398de48ed42cd31bf17a6063db46a9e0783ac13cd844",
-    "9ebcfaf2322932d464f15b5662cae4d669b2d785b8299556d73fffcae8365d32",
-    "1b44d22643830cd4f23c9deadb0bd499fb392fb2cd9526d81547d93077d983df",
-    "97126a9791f0c1176e4563ad679a301dac27c59011f579e808bbd6e9f4cd1034",
-    "e81c758e1ca177b0942ecad62cf8d321ffc315376135bcbed3df932a6e5b40c0",
-    "f29fd9c52e04403cd2c7d43b6fe2479292e53b2f61969d25256d2d2aca7c6a81",
-    "0ea221716cf13710214dcd331a61cea48308c3940df1d28cfc7fd817c83714e1",
-    "3ab9cab6212fabd723a2c5a1949c2ded19980398b56e6080978e796f45cbbc90",
-    "ebc18868864ad075548cc1784f4f9a237bb98335f9645ee727dac8332a3e3716",
-    "bb61fc17daf8bdd4e16fdcf50137a8d7762bec486ede9249d92e511fcb693676",
-    "e1bcb583985325d0ef5f3ef52957d0371c96d4af767b13e48102bca9d5351a9b",
-    "947c0d94c8213ac7aaa41c4efc95d854246550298259cf1bb489654d0e969050",
-    "cbca32daaae36a872a11da4eaff65d1068ff3f154eedc9d3fc0c214a4e5d32bd",
-    "f4c4db3df4ff0de90f44b027fc2e28c16bf7e5c75ea75b0a9762bbb7ac86e7a3",
-    "4193474b2f1c72f735b13633b219d9cabdd43c21d9c2bb4dfc4809f104ba4c06",
-    "f73e37957c74f554be132986f38b6f1d75339f636dfe2b681a0cf3f88d2733af",
-    "a4c44fc5f5bf213e2be6091ccaed49d8bf039d78f6fbd9c4d7b7428cfcb2eda4",
-    "cab4875269f44a701c5e58190a1d2f6fcb577ea79d842522dcab20ccb39b7ad2",
-    "8ecdb93582b2d5270457b36651b62776256ade3aaa2d7432ae65c14f07432d49",
+    "5a4a025ca07d567e7d04bed7_32.00px_10",
+"5a90628ea07d569183acf22b_32.00px_5",
+"5984d23b579e529fdea8af09_32.00px_1",
+"5a0de18fa07d56baef59b1f8_32.00px_11",
+"5a3d5aeca07d567e7d04bea8_32.00px_3",
+"59a31cbaa07d5673ec099c8b_32.00px_7",
+"5ad21210a07d5605be933dc4_32.00px_0",
+"5a19d440a07d5643ecfab27c_32.00px_0",
+"59f01b6fa07d563535ffc6d2_32.00px_1",
+"5a147495a07d56baef59b20d_32.00px_13",
+"5a3674f8a07d567f57e0273a_32.00px_2",
+"59d678cca07d5605c2118821_32.00px_0",
+"59a5c0c3a07d565d45b82dc4_32.00px_14",
+"5a4bc5c7a07d567e7d04bee6_32.00px_7",
+"59f01ac3a07d563535ffc6d1_32.00px_10",
+"59cd4397a07d562888f854fb_32.00px_2",
+"5a911d3fa07d569183acf22d_32.00px_9",
+"5c313313a07d5605c141bf3c_32.00px_2",
+"5a342c1aa07d567f57e0272b_32.00px_11",
+"5a1e4d43a07d5643ecfab298_32.00px_2",
+"5c10ffa1a07d563ca1c8fdf2_32.00px_3",
+"598aead8579e528f6a844cb9_32.00px_8",
+"5a19ef14a07d5643ecfab283_32.00px_3",
+"5a4bb764a07d567e7d04bee4_32.00px_4",
+"5a19d440a07d5643ecfab27c_32.00px_5",
+"59855d29579e529fdea8af13_32.00px_8",
+"59ba821fa07d5605a8cf48e4_32.00px_1",
+"59edf473a07d563535ffc6c3_32.00px_16",
+"5991982d579e52a0e6c05e47_32.00px_6",
+"5a05e555a07d56baef59b1c9_32.00px_6",
+"5a3d08c2a07d567e7d04bea3_32.00px_4",
+"5a02b8b2a07d56e705f896a4_32.00px_6",
+"5a46b8a6a07d567e7d04becd_32.00px_8",
+"5a29b3b1a07d5643ecfab2be_32.00px_18",
+"5bf8efbfa07d568353ddcf1f_32.00px_16",
 ]
 
 
@@ -107,7 +123,7 @@ class VarroaConfig(Config):
     NAME = "varroa"
 
     # Adjust depending on your GPU memory
-    IMAGES_PER_GPU = 6
+    IMAGES_PER_GPU = 2
 
     # Number of classes (including background)
     NUM_CLASSES = 1 + 1  # Background + varroa
